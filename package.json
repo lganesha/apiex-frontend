@@ -1,0 +1,94 @@
+{
+  "name": "reactjs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@coreui/coreui": "^2.0.6",
+    "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
+    "@coreui/icons": "^0.3.0",
+    "@coreui/react": "^2.0.5",
+    "axios": "^0.18.0",
+    "axios-progress-bar": "^1.2.0",
+    "bootstrap": "^4.1.3",
+    "classnames": "^2.2.6",
+    "core-js": "^2.5.7",
+    "flag-icon-css": "^3.0.0",
+    "font-awesome": "^4.7.0",
+    "history": "^4.7.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.4.0",
+    "redux": "^4.0.0",
+    "simple-line-icons": "^2.4.1",
+    "sw-precache": "^5.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cssnano": "^4.1.0",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
+    "jest": "^23.5.0",
+    "node-sass": "^4.9.3",
+    "parcel-bundler": "^1.9.7",
+    "postcss-modules": "^1.3.2",
+    "prop-types": "^15.6.2"
+  },
+  "scripts": {
+    "start": "node scripts/start.js",
+    "dev": "npm run start",
+    "build": "node scripts/build.js",
+    "test": "jest --watchAll"
+  },
+  "alias": {
+    "~": "<rootDir>/src"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/adapter.js",
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^~(.*)$": "<rootDir>/src/$1"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node",
+      "mjs"
+    ]
+  },
+  "babel": {
+    "plugins": [
+      "transform-class-properties"
+    ],
+    "presets": [
+      "env",
+      "react"
+    ]
+  }
+}
