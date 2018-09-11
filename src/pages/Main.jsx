@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Router, Switch, Route, withRouter } from 'react-router-dom'
 import { Container } from 'reactstrap'
-import { api, history } from '~/Utils'
+import { api, history } from '~/utils'
 import {
   AppAside,
   AppBreadcrumb,
@@ -15,9 +15,9 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav
 } from '@coreui/react'
-import UserProfile from '~/Pages/User/Profile'
-import TemplateHeader from '~/Layouts/TemplateHeader'
-import TemplateFooter from '~/Layouts/TemplateFooter'
+import UserProfile from '~/pages/User/Profile'
+import TemplateHeader from '~/layouts/TemplateHeader'
+import TemplateFooter from '~/layouts/TemplateFooter'
 
 class Main extends React.Component {
 

@@ -6,7 +6,7 @@ const defaultOptions = {
   cert: '',
   key: '',
   target: 'browser',
-  port: 3333,
+  port: 4444,
   open: true,
   cache: false
 }

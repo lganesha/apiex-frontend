@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
-import { auth, history, setToken, redirect } from '~/Utils'
+import { auth, history, setToken, redirect } from '~/utils'
 
 class Login extends Component {
 

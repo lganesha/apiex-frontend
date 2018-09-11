@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux'
-import { common } from '~/Utils'
+import { common } from '~/utils'
 
 // combine all reducers
 const reducer = combineReducers({

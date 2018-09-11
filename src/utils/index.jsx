@@ -1,9 +1,9 @@
 import Axios from 'axios'
 import { loadProgressBar } from 'axios-progress-bar'
-import { getToken, setToken, isLogged, logout } from '~/Utils/session'
-import { history, isPage, isHome, is404, is500, redirect, redirectIf } from '~/Utils/uri'
-import common from '~/Utils/common'
-import sw from '~/Utils/sw'
+import { getToken, setToken, isLogged, logout } from '~/utils/session'
+import { history, isPage, isHome, is404, is500, redirect, redirectIf } from '~/utils/uri'
+import common from '~/utils/common'
+import sw from '~/utils/sw'
 
 // create new instance of Axios as api object
 const api = Axios.create({
