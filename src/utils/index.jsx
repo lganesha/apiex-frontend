@@ -7,16 +7,18 @@ import sw from '~/utils/sw'
 
 // create new instance of Axios as api object
 const api = Axios.create({
-  baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:8000/api' : '/api',
+  baseURL: process.env.API_URL || 'http://localhost:8000/api',
   headers: {
-    'Accept': 'application/json',
-    'Authorization': ('Bearer ' + getToken())
+    'Accept': 'application/json'
+  },
+  transformRequest: function (data, headers) {
+    headers['Authorization'] = ('Bearer ' + getToken())
   }
 })
 
 // create new instance of Axios as api object
 const auth = Axios.create({
-  baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost:8000/api' : '/api',
+  baseURL: process.env.API_URL || 'http://localhost:8000/api',
   headers: {
     'Accept': 'application/json'
   }
