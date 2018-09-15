@@ -4,8 +4,8 @@ const getToken = () => {
 }
 
 // set token to local storage
-const setToken = (token) => {
-  return localStorage.setItem(process.env.TOKEN_KEY || 'token', token)
+const setToken = async (token) => {
+  await localStorage.setItem(process.env.TOKEN_KEY || 'token', token)
 }
 
 // check if token exists

@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-const propTypes = {
-  children: PropTypes.node,
-};
-
-const defaultProps = {};
-
-class TemplateFooter extends Component {
+class TemplateFooter extends React.Component {
   render() {
-
     return (
       <React.Fragment>
-        <span><a href="https://coreui.io">CoreUI</a> &copy; 2018 creativeLabs.</span>
-        <span className="ml-auto">Powered by <a href="https://coreui.io/react">CoreUI for React</a></span>
+        <span>&copy; {this.props.projectYear} {this.props.projectCreator}.</span>
       </React.Fragment>
-    );
+    )
   }
 }
 
-TemplateFooter.propTypes = propTypes;
-TemplateFooter.defaultProps = defaultProps;
+TemplateFooter.propTypes = {
+  children: PropTypes.node,
+  projectYear: PropTypes.string,
+  projectCreator: PropTypes.string
+}
 
-export default TemplateFooter;
+TemplateFooter.defaultProps = {
+  projectYear: '2018',
+  projectCreator: 'zafexlabs'
+}
+
+export default TemplateFooter

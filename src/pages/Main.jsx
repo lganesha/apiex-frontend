@@ -2,35 +2,53 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Router, Switch, Route, withRouter } from 'react-router-dom'
 import { Container } from 'reactstrap'
-import { api, history } from '~/utils'
-import {
-  AppAside,
-  AppBreadcrumb,
-  AppFooter,
-  AppHeader,
-  AppSidebar,
-  AppSidebarFooter,
-  AppSidebarForm,
-  AppSidebarHeader,
-  AppSidebarMinimizer,
-  AppSidebarNav
-} from '@coreui/react'
+import { AppBreadcrumb, AppFooter, AppHeader, AppSidebar, AppSidebarNav } from '@coreui/react'
+import { api, auth } from '~/utils/api'
+import { redirect } from '~/utils/uri'
+import { isLogged, getToken, setToken } from '~/utils/session'
 import UserProfile from '~/pages/User/Profile'
 import TemplateHeader from '~/layouts/TemplateHeader'
 import TemplateFooter from '~/layouts/TemplateFooter'
+import TemplateAside from '~/layouts/TemplateAside'
 
 class Main extends React.Component {
 
   state = {
-    navigations: {}
+    user: {
+
+    },
+    privileges: [
+
+    ],
+    navigations: {
+
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (isLogged()) {
+      let validated = true
+      await auth.post('/revalidate', {
+        token: getToken()
+      }).catch(err => {
+        validated = false
+      })
+      if (false === validated) {
+        return redirect('/login')
+      }
+    } else if (this.props.token) {
+      await setToken(this.props.token)
+    }
+
     api.get('/me').then(res => {
-      console.log(res)
+      this.setState({
+        user: res.data.data.user,
+        privileges: res.data.data.privileges,
+      })
     });
+
     api.get('/menu/navigation/load', {params:{id: 1}}).then(res => {
-      console.log(res)
+      // console.log(res)
     });
   }
 
@@ -38,14 +56,11 @@ class Main extends React.Component {
     return (
       <div className="app">
         <AppHeader fixed>
-          <TemplateHeader />
+          <TemplateHeader displayName={this.state.user.name} tooltipName={this.state.user.email} />
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
+            <TemplateAside />
           </AppSidebar>
           <main className="main">
           </main>
@@ -59,15 +74,8 @@ class Main extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  pageTitle: state.common.pageTitle
+  pageTitle: state.pageReducer.pageTitle,
+  token: state.authReducer.token
 })
 
-const mapDispatchToProps = dispatch => ({
-  onLoad: (payload) =>
-    dispatch({
-      type: process.env.PAGE_LOAD,
-      payload
-    })
-})
-
-export default withRouter(Main)
+export default withRouter(connect(mapStateToProps)(Main))

@@ -1,13 +1,16 @@
-import { createStore, combineReducers } from 'redux'
-import { common } from '~/utils'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { alertReducer, pageReducer, authReducer } from '~/common'
 
-// combine all reducers
+// registering reducer
 const reducer = combineReducers({
-  common
+  alertReducer,
+  pageReducer,
+  authReducer
 })
 
 // make store
-const store = createStore(reducer)
-
-// export store as default
-export default store
+export default createStore(
+  reducer,
+  applyMiddleware(thunk)
+)

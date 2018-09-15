@@ -1,78 +1,53 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, NavLink } from 'reactstrap';
-import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '~/assets/img/logo.svg'
-import sygnet from '~/assets/img/sygnet.svg'
-
-const propTypes = {
-  children: PropTypes.node,
-};
-
-const defaultProps = {};
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Badge, Nav, NavItem, NavLink } from 'reactstrap'
+import { AppNavbarBrand, AppSidebarToggler } from '@coreui/react'
 
 class TemplateHeader extends Component {
   render() {
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand
-          full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
-        />
+        <AppNavbarBrand>
+          <span className="navbar-brand-full">{this.props.appName}</span>
+          <span className="navbar-brand-minimized">{this.props.appNameMinimized}</span>
+        </AppNavbarBrand>
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-
-        <Nav className="d-md-down-none" navbar>
-          <NavItem className="px-3">
-            <NavLink href="/">Dashboard</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#/users">Users</NavLink>
-          </NavItem>
-          <NavItem className="px-3">
-            <NavLink href="#">Settings</NavLink>
-          </NavItem>
-        </Nav>
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
+            <NavLink href="#">
+              <i className="icon-bell"></i>
+              <Badge pill color="danger">5</Badge>
+            </NavLink>
           </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-list"></i></NavLink>
+          <NavItem className="d-md-down-none" style={{marginRight: '20px'}}>
+            <NavLink href="#">
+              <img
+                src={'assets/img/avatars/6.jpg'}
+                className="img-avatar"
+                alt={this.props.displayName}
+                title={this.props.tooltipName}
+              />
+            </NavLink>
           </NavItem>
-          <NavItem className="d-md-down-none">
-            <NavLink href="#"><i className="icon-location-pin"></i></NavLink>
-          </NavItem>
-          <AppHeaderDropdown direction="down">
-            <DropdownToggle nav>
-              <img src={'assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-            </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
-              <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-              <DropdownItem><i className="fa fa-usd"></i> Payments<Badge color="secondary">42</Badge></DropdownItem>
-              <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-              <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
-            </DropdownMenu>
-          </AppHeaderDropdown>
         </Nav>
-        <AppAsideToggler className="d-md-down-none" />
-        {/*<AppAsideToggler className="d-lg-none" mobile />*/}
       </React.Fragment>
-    );
+    )
   }
 }
 
-TemplateHeader.propTypes = propTypes;
-TemplateHeader.defaultProps = defaultProps;
+TemplateHeader.propTypes = {
+  children: PropTypes.node,
+  displayName: PropTypes.string,
+  tooltipName: PropTypes.string,
+  appName: PropTypes.string,
+  appNameMinimized: PropTypes.string
+}
+TemplateHeader.defaultProps = {
+  displayName: 'User Name',
+  tooltipName: 'User Name',
+  appName: 'API Frontend',
+  appNameMinimized: 'API'
+}
 
-export default TemplateHeader;
+export default TemplateHeader

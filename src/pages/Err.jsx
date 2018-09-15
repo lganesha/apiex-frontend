@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Button, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React, { Component } from 'react'
+import { Button, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
 
 const Err = (props) => {
   return (
@@ -16,7 +16,7 @@ const Err = (props) => {
         </Row>
       </Container>
     </div>
-  );
+  )
 }
 
 export default Err

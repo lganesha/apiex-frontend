@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
-import { auth, history, setToken, redirect } from '~/utils'
+import { auth } from '~/utils/api'
+import { setToken } from '~/utils/session'
+import { history, redirect } from '~/utils/uri'
+import { authLogoutAction, authReducer, authTypes, authLoginAction } from '~/common'
 
 class Login extends Component {
 
-  onSubmit(e) {
+  constructor(props) {
+    super(props)
+    this.props.dispatch(authLogoutAction())
+  }
+
+  submitHandler(e) {
     e.preventDefault()
-    const datas = {
-      name: e.target.username.value,
-      password: e.target.password.value
-    }
-    auth.post('/login', datas).then((response) => {
-      if (response.status === 200 || response.statusText == 'OK') {
-        setToken(response.data.data)
-        redirect('/')
-      }
-    })
+    this.props.dispatch(
+      authLoginAction(e.target.username.value, e.target.password.value)
+    )
+    redirect('/')
   }
 
   render() {
@@ -27,7 +30,7 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form onSubmit={this.onSubmit}>
+                    <Form onSubmit={this.submitHandler.bind(this)}>
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -66,4 +69,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default connect()(Login)
