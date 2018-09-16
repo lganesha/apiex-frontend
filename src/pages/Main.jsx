@@ -26,40 +26,40 @@ class Main extends React.Component {
     privileges: [],
     pages: [
       {
-        component: () => <UserProfileDetail {...this.state} />,
+        component: (props) => <UserProfileDetail {...this.state} {...props} />,
         privilege: 'user.profile.detail',
         path: '/profile',
         exact: true
       },
       {
-        component: () => <UserProfileUpdate {...this.state} />,
+        component: (props) => <UserProfileUpdate {...this.state} {...props} />,
         privilege: 'user.profile.update',
         path: '/profile/update',
         exact: true
       },
       {
-        component: () => <UserMemberList {...this.state} />,
+        component: (props) => <UserMemberList {...this.state} {...props} />,
         privilege: 'user.member.index',
         path: '/member',
         name: 'Member',
         exact: true
       },
       {
-        component: () => <UserMemberList {...this.state} />,
+        component: (props) => <UserMemberList {...this.state} {...props} />,
         privilege: 'user.member.index',
         path: '/member/list',
         name: 'List',
         exact: true
       },
       {
-        component: () => <UserMemberDetail {...this.state} />,
+        component: (props) => <UserMemberDetail {...this.state} {...props} />,
         privilege: 'user.member.detail',
         path: '/member/detail/:id',
         name: 'Detail',
         exact: true
       },
       {
-        component: () => <UserMemberUpdate {...this.state} />,
+        component: (props) => <UserMemberUpdate {...this.state} {...props} />,
         privilege: 'user.member.update',
         path: '/member/update/:id',
         name: 'Update',

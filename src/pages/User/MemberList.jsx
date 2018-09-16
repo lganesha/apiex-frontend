@@ -2,6 +2,7 @@ import React from 'react'
 import ReactTable from 'react-table'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { Button, Col, Container, Row, Card, CardBody } from 'reactstrap'
 import { api } from '~/utils/api'
 
@@ -14,7 +15,7 @@ class MemberList extends React.Component {
   }
 
   async componentDidMount() {
-    await api.get(this.props.apiPath).then(res => {
+    await api.get('/member/index').then(res => {
       this.setState({
         items: res.data.items.map(item => {
           return item.data
@@ -24,7 +25,7 @@ class MemberList extends React.Component {
   }
 
   async reloadDataList(state, instance) {
-    await api.get(this.props.apiPath).then(res => {
+    await api.get('/member/index').then(res => {
       this.setState({
         items: res.data.items.map(item => {
           return item.data
@@ -57,16 +58,14 @@ class MemberList extends React.Component {
 
 MemberList.propTypes = {
   children: PropTypes.node,
-  apiPath: PropTypes.string,
   tableColumns: PropTypes.array
 }
 
 MemberList.defaultProps = {
-  apiPath: '/member/index',
   tableColumns: [
     {
       Header: '',
-      id: 'row-index',
+      id: 'row-index-id',
       filterable: false,
       sortable: false,
       maxWidth: 50,
@@ -93,6 +92,14 @@ MemberList.defaultProps = {
       Cell: (row) => {
         return row.value == 1 ? 'Active' : 'Not Active'
       }
+    },
+    {
+      id: 'row-index-action',
+      filterable: false,
+      sortable: false,
+      Header: props => <b style={{textAlign: 'left', margin: '0px', display: 'block'}}>Action</b>,
+      accessor: 'id',
+      Cell: (row) => <NavLink to={"/member/detail/" + row.value} className="nav-link"><i className="nav-icon icon-speedometer"></i> Detail</NavLink>
     }
   ]
 }
