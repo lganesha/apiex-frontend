@@ -11,6 +11,9 @@ import Err from '~/pages/Err'
 import Main from '~/pages/Main'
 import Login from '~/pages/Login'
 
+redirectIf('/', isPage('logout') && logout())
+redirectIf('/login', !isLogged() && !isPage('login'))
+
 it('renders without crashing', () => {
   shallow(
     <Provider store={store}>

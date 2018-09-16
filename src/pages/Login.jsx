@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap'
-import { auth } from '~/utils/api'
-import { setToken } from '~/utils/session'
-import { history, redirect } from '~/utils/uri'
 import { authLogoutAction, authReducer, authTypes, authLoginAction } from '~/common'
 
 class Login extends Component {
@@ -18,7 +15,6 @@ class Login extends Component {
     this.props.dispatch(
       authLoginAction(e.target.username.value, e.target.password.value)
     )
-    redirect('/')
   }
 
   render() {
@@ -69,4 +65,8 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login)
+const mapStateToProps = state => ({
+  status: state.authReducer.status
+})
+
+export default connect(mapStateToProps)(Login)

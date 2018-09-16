@@ -22,6 +22,17 @@ import '@coreui/icons/css/coreui-icons.min.css';
 import '@coreui/coreui/dist/css/bootstrap.min.css';
 import '@coreui/coreui/dist/css/coreui.min.css';
 
+class App extends React.Component {
+  render() {
+    console.log('a')
+    return (
+      <React.Fragment>
+        DOR
+      </React.Fragment>
+    )
+  }
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>

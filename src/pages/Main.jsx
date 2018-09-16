@@ -2,27 +2,71 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Router, Switch, Route, withRouter } from 'react-router-dom'
 import { Container } from 'reactstrap'
-import { AppBreadcrumb, AppFooter, AppHeader, AppSidebar, AppSidebarNav } from '@coreui/react'
+import { AppFooter, AppHeader, AppSidebar, AppBreadcrumb } from '@coreui/react'
+// app defined
 import { api, auth } from '~/utils/api'
-import { redirect } from '~/utils/uri'
+import { history, isPage, redirectIf, redirect } from '~/utils/uri'
 import { isLogged, getToken, setToken } from '~/utils/session'
-import UserProfile from '~/pages/User/Profile'
+import { authTypes } from '~/common'
+// include template
 import TemplateHeader from '~/layouts/TemplateHeader'
 import TemplateFooter from '~/layouts/TemplateFooter'
 import TemplateAside from '~/layouts/TemplateAside'
+// component to registering on route
+import UserProfileDetail from '~/pages/User/ProfileDetail'
+import UserProfileUpdate from '~/pages/User/ProfileUpdate'
+import UserMemberDetail from '~/pages/User/MemberDetail'
+import UserMemberUpdate from '~/pages/User/MemberUpdate'
+import UserMemberList from '~/pages/User/MemberList'
 
 class Main extends React.Component {
 
   state = {
-    user: {
-
-    },
-    privileges: [
-
+    user: {},
+    privileges: [],
+    pages: [
+      {
+        component: () => <UserProfileDetail {...this.state} />,
+        privilege: 'user.profile.detail',
+        path: '/profile',
+        exact: true
+      },
+      {
+        component: () => <UserProfileUpdate {...this.state} />,
+        privilege: 'user.profile.update',
+        path: '/profile/update',
+        exact: true
+      },
+      {
+        component: () => <UserMemberList {...this.state} />,
+        privilege: 'user.member.index',
+        path: '/member',
+        name: 'Member',
+        exact: true
+      },
+      {
+        component: () => <UserMemberList {...this.state} />,
+        privilege: 'user.member.index',
+        path: '/member/list',
+        name: 'List',
+        exact: true
+      },
+      {
+        component: () => <UserMemberDetail {...this.state} />,
+        privilege: 'user.member.detail',
+        path: '/member/detail/:id',
+        name: 'Detail',
+        exact: true
+      },
+      {
+        component: () => <UserMemberUpdate {...this.state} />,
+        privilege: 'user.member.update',
+        path: '/member/update/:id',
+        name: 'Update',
+        exact: true
+      }
     ],
-    navigations: {
-
-    }
+    navigations: {}
   }
 
   async componentDidMount() {
@@ -36,7 +80,7 @@ class Main extends React.Component {
       if (false === validated) {
         return redirect('/login')
       }
-    } else if (this.props.token) {
+    } else {
       await setToken(this.props.token)
     }
 
@@ -48,7 +92,9 @@ class Main extends React.Component {
     });
 
     api.get('/menu/navigation/load', {params:{id: 1}}).then(res => {
-      // console.log(res)
+      this.setState({
+        navigations: res.data.data
+      })
     });
   }
 
@@ -62,8 +108,28 @@ class Main extends React.Component {
           <AppSidebar fixed display="lg">
             <TemplateAside />
           </AppSidebar>
-          <main className="main">
-          </main>
+          <div className="main">
+            <AppBreadcrumb appRoutes={this.state.pages} />
+            <Container fluid>
+              <Switch>
+                {
+                  this.state.pages.map((page, index) => {
+                    if (true === this.state.privileges.includes(page.privilege)) {
+                      return (
+                        <Route
+                          exact
+                          key={index}
+                          path={page.path}
+                          component={page.component}
+                        />
+                      )
+                    }
+                  })
+                }
+                <Route exact path="/" component={() => <UserProfileDetail {...this.state} />} />
+              </Switch>
+            </Container>
+          </div>
         </div>
         <AppFooter>
           <TemplateFooter />

@@ -95,6 +95,7 @@ const authLoginAction = (username, password) => {
           payload
         }
       })
+      redirect('/')
     }).catch(err => {
       dispatch(() => {
         let payload = {
