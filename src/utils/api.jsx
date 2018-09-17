@@ -6,8 +6,10 @@ import { getToken } from '~/utils/session'
 const api = Axios.create({
   baseURL: process.env.API_URL || 'http://localhost:8000/api',
   headers: {
-    'Accept': 'application/json',
-    'Authorization': 'Bearer ' + getToken()
+    'Accept': 'application/json'
+  },
+  transformRequest: function(data, headers) {
+    headers['Authorization'] = 'Bearer ' + getToken()
   }
 })
 
